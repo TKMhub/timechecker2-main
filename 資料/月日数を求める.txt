@@ -1,0 +1,11 @@
+//月日数を求める
+const TsukiNissu = (yyyymmdd) => {
+    
+    const dateStr = yyyymmdd; // 分割したい日付文字列
+    
+    const year  = dateStr.slice(0, 4); // 年を取得
+    const month = dateStr.slice(6, 2); // 月を取得
+    
+    return new Date(year, month, 0).getDate();
+    
+}; 

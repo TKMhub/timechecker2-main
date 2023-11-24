@@ -1,0 +1,49 @@
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+// Your code here!
+
+let TimeGokei    = "";
+let TimeKyujitsu = "";
+let TimeRodo     = "";
+    
+const ChokaHantei = (yyyy_mm_dd, Zangyo, Nissu) => {
+    //超過したら申請が必要な時間
+    const Choka45h = 45;  //h
+    const Choka60h = 60;  //h
+    
+    let Hantei45 = parseInt(Choka45h) * 60;
+    let Hantei60 = parseInt(Choka60h) * 60;
+    
+    //超過判定)
+    let HanteiMessage = "";
+    if (Hantei60 <= Zangyo) {
+        HanteiMessage = "基準超過残業申請書（６０Ｈ／月超）を提出してください。";  
+    }
+    else if (Hantei45 <= Zangyo) {
+        HanteiMessage = "基準超過残業申請書（４５Ｈ／月超）を提出してください。";
+    }
+    
+    //予測判定
+    let HanteiYosoku = "";
+    var from = new Date(yyyy_mm_dd);
+    var to = new Date(yyyy_mm_dd);
+    from.setDate(1)
+    // 経過時間をミリ秒で取得
+    var ms = to.getTime() - from.getTime();
+    // ミリ秒を日付に変換(端数切捨て)
+    var days = Math.floor(ms / (1000*60*60*24));
+    
+
+    if ( (TimeGokei - TimeKyujitsu) * 60 > (TimeRodo + (60 * 60)) * (days / Nissu) ) {
+        HanteiYosoku = "残業時間が６０Ｈを超えるペースです。"
+    }
+    else if ( (TimeGokei - TimeKyujitsu) * 60 > (TimeRodo + 45 * 60) * (days / Nissu) ) {
+        HanteiYosoku = "残業時間が４５Ｈを超えるペースです。"
+    }
+    
+    return HanteiMessage;
+    
+}; 
+
+    console.log("計算結果：" , ChokaHantei("2023-11-15", "12600", "30"))
+

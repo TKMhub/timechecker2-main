@@ -1,0 +1,35 @@
+//残業時間を求める
+const ZangyoJikan = (GokeiKinmuJikan , HoteiKyujitsuJikan , TsukiNissu) => {
+    
+    const dateStrGokei    = GokeiKinmuJikan;    // 分割したい合計勤務時間
+    const dateStrKyujitsu = HoteiKyujitsuJikan; // 分割したい法廷休日時間
+    
+    let hhGokei     = dateStrGokei.split(':')[0];    // 年を取得
+    let mmGokei     = dateStrGokei.split(':')[1];    // 月を取得
+    let hhKyujitsu  = dateStrKyujitsu.split(':')[0]; // 年を取得
+    let mmKyujitsu  = dateStrKyujitsu.split(':')[1]; // 月を取得
+
+    if (!hhGokei) {
+        hhGokei = "0";
+    }
+    if (!mmGokei) {
+       mmGokei = "0";
+    }
+    
+    if (!hhKyujitsu) {
+        hhKyujitsu = "0";
+    }
+    if (!mmKyujitsu) {
+       mmKyujitsu = "0";
+    }
+
+    TimeGokei    = parseInt(hhGokei) * 60 + parseInt(mmGokei)        //分変換
+    TimeKyujitsu = parseInt(hhKyujitsu) * 60 + parseInt(mmKyujitsu)　//分変換
+    TimeRodo     = parseInt(TsukiNissu) / 7 * 40 * 60 　　　　　　　　　　
+    
+    return parseInt(TimeGokei) - parseInt(TimeKyujitsu) - parseInt(TimeRodo)
+    
+}; 
+
+
+console.log("計算結果：" , ZangyoJikan("30:00" , "" , "31"))
